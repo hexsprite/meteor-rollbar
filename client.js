@@ -9,8 +9,9 @@ import { wrapMeteorDebug } from './common'
 export let rollbar
 
 Meteor.startup(function () {
+  const { accessToken, environment } = Meteor.settings.public.rollbar
   rollbar = window.rollbar = new Rollbar({
-    accessToken: Meteor.settings.public.rollbar.accessToken,
+    accessToken,
     captureUncaught: true,
     captureUnhandledRejections: true,
     ignoredMessages: [
@@ -21,7 +22,7 @@ Meteor.startup(function () {
       'Connection timeout. No sockjs heartbeat received.'
     ],
     payload: {
-      environment: Meteor.settings.public.rollbar.deployment,
+      environment,
       client: {
         javascript: {
           code_version: getCodeVersion(),

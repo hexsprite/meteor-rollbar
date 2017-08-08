@@ -1,6 +1,6 @@
 Package.describe({
   name: 'hexsprite:rollbar',
-  version: '0.0.1',
+  version: '0.0.2',
   // Brief, one-line summary of the package.
   summary: 'rollbar error logger',
   // URL to the Git repository containing the source code for this package.
@@ -13,7 +13,7 @@ Package.describe({
 Package.onUse(function (api) {
   api.versionsFrom('1.5.1')
   api.use('ecmascript')
-  api.use(['iron:router', 'meteorhacks:inject-initial'])
+  api.use(['iron:router@1.1.2', 'meteorhacks:inject-initial@1.0.4'])
   api.mainModule('server.js', 'server')
   api.mainModule('client.js', 'client')
 })

@@ -14,13 +14,14 @@ Meteor.startup(() => {
 
 function setupRollbar () {
   const { accessToken } = Meteor.settings.rollbar
+  const { environment } = Meteor.settings.public.rollbar
   rollbar = new Rollbar({
     accessToken,
     handleUncaughtExceptions: true,
     handleUnhandledRejections: true,
     ignoredMessages: [/.*You are using the appcache package.*/],
     payload: {
-      environment: Meteor.settings.public.rollbar.deployment
+      environment
     }
   })
   injectRevision()
