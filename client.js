@@ -57,11 +57,13 @@ function onLoginUser (fn) {
 function wrapAccounts () {
   // properly attribute requests to the right person
   onLoginUser(function () {
+    const id = Meteor.userId()
+    const { email } = Meteor.user().services.google
     rollbar.configure({
       payload: {
         person: {
-          email: Meteor.user().services.google.email,
-          id: Meteor.userId()
+          email,
+          id
         }
       }
     })
@@ -91,6 +93,7 @@ function wrapBlazeExceptions () {
 
 function addErrorTrigger () {
   // for testing: make it easy to trigger an error on any URL
+  // NOTE: this will trigger before the loggedIn callback runs
   if (window.location.href.includes('?trigger-error')) {
     throw new Error('test error')
   }
